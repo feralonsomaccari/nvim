@@ -13,5 +13,5 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
-require("ramiro")
+require("fer")
 require("lazy").setup("plugins")
