@@ -24,9 +24,6 @@ vim.o.smartcase = true
 -- Enable system clipboard support
 vim.opt.clipboard:append('unnamedplus')
 
--- Redefine D to delete without yanking
-vim.api.nvim_set_keymap('n', 'D', '"_d$', { noremap = true })
-
 vim.cmd([[
 let g:closetag_filenames = '*.html,*.xhtml,*.jsx,*.tsx'
 let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.tsx'
