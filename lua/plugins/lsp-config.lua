@@ -41,7 +41,6 @@ return {
 			vim.keymap.set("n", "<leader>h", vim.lsp.buf.hover, {})
 			vim.keymap.set("n", "<leader>g", vim.lsp.buf.definition, {})
 			vim.keymap.set({ "n", "v" }, "<leader>.", vim.lsp.buf.code_action, {})
-	
 		end,
 	},
 }
