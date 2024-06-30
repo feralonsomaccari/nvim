@@ -83,3 +83,5 @@ vim.api.nvim_set_keymap('v', '<C-c>', '"+y', { noremap = true, silent = true })
 -- Reveal in Tree
 vim.keymap.set('n', '<leader>fr', ':Neotree reveal<CR>', {})
 
+vim.api.nvim_set_keymap('i', '<C-BS>', '<C-w>', { noremap = true, silent = true })
+
