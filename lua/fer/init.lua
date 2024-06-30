@@ -62,6 +62,7 @@ end
 
 -- Map Ctrl+Shift+E to call the custom function
 vim.api.nvim_set_keymap('n', '<C-S-e>', ':lua ToggleTreeFocus()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-e>', ':lua ToggleTreeFocus()<CR>', { noremap = true, silent = true })
 
 -- Remap Ctrl+J to behave like Ctrl+D (half-page down)
 vim.api.nvim_set_keymap('n', '<C-j>', '5j', { noremap = true, silent = true })
