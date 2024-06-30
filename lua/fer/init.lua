@@ -5,6 +5,11 @@ vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 
 vim.opt.smartindent = true
+-- Use spaces instead of tabs
+vim.opt.expandtab = true
+
+-- Copy indent from current line when starting a new line
+vim.opt.autoindent = true
 
 vim.opt.wrap = false
 
@@ -73,3 +78,7 @@ vim.api.nvim_set_keymap('v', '<C-l>', '$', { noremap = true, silent = true })
 
 -- Map Ctrl+C in visual mode to yank to clipboard
 vim.api.nvim_set_keymap('v', '<C-c>', '"+y', { noremap = true, silent = true })
+
+-- Reveal in Tree
+vim.keymap.set('n', '<leader>fr', ':Neotree reveal<CR>', {})
+

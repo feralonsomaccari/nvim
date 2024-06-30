@@ -28,10 +28,10 @@ return {
 						require("telescope.themes").get_dropdown({}),
 					},
 				},
-				defaults = { 
-					file_ignore_patterns = {".git/", ".cache", "%.o", "%.a", "%.out", "%.class",
-						"%.pdf", "%.mkv", "%.mp4", "%.zip", "node_modules", ".yalc/", ".next/", "public", "dist", "coverage", "es5", "component"},
-				}
+				--defaults = { 
+					--file_ignore_patterns = {".git/", ".cache", "%.o", "%.a", "%.out", "%.class",
+				--"%.pdf", "%.mkv", "%.mp4", "%.zip", "node_modules", ".yalc/", ".next/", "public", "dist", "coverage", "es5", "component"},
+				--}
 			})
 			require("telescope").load_extension("ui-select")
 		end,
