@@ -85,6 +85,14 @@ vim.keymap.set('n', '<leader>fr', ':Neotree reveal<CR>', {})
 
 vim.api.nvim_set_keymap('i', '<C-BS>', '<C-w>', { noremap = true, silent = true })
 
+-- Delete to blackhole register
+vim.api.nvim_set_keymap('n', 'dd', '"_dd', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', 'd', '"_d', { noremap = true, silent = true })
+
+-- Delete in normal register
+vim.api.nvim_set_keymap('n', 'dc', 'dd', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', 'dc', '_d', { noremap = true, silent = true })
+
 -- Neovide conf
 
 vim.g.neovide_position_animation_length = 0
