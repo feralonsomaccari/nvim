@@ -93,8 +93,10 @@ vim.api.nvim_set_keymap('v', 'd', '"_d', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'dc', 'dd', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', 'dc', '_d', { noremap = true, silent = true })
 
--- Neovide conf
+-- Normal mode mapping for <C-a> to select everything in the file
+vim.api.nvim_set_keymap('n', '<C-a>', 'ggVG', { noremap = true, silent = true })
 
+-- Neovide conf
 vim.g.neovide_position_animation_length = 0
 vim.g.neovide_cursor_animation_length = 0.00
 vim.g.neovide_cursor_trail_size = 0
@@ -102,3 +104,5 @@ vim.g.neovide_cursor_animate_in_insert_mode = false
 vim.g.neovide_cursor_animate_command_line = false
 vim.g.neovide_scroll_animation_far_lines = 0
 vim.g.neovide_scroll_animation_length = 0.00
+
+
