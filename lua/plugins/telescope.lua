@@ -8,6 +8,9 @@ return {
 			vim.keymap.set("n", "<leader>p", builtin.find_files, {})
 			vim.keymap.set("n", "<leader>l", builtin.live_grep, {})
 			vim.keymap.set("n", "<leader>b", builtin.buffers, {})
+
+     vim.keymap.set("n", "<leader>fd", "<cmd>Telescope dir live_grep<CR>", { noremap = true, silent = true })
+     vim.keymap.set("n", "<leader>pd", "<cmd>Telescope dir find_files<CR>", { noremap = true, silent = true })
 		end,
 	},
 	{
