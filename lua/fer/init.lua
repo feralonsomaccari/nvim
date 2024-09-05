@@ -96,6 +96,15 @@ vim.api.nvim_set_keymap('v', 'dc', '_d', { noremap = true, silent = true })
 -- Normal mode mapping for <C-a> to select everything in the file
 vim.api.nvim_set_keymap('n', '<C-a>', 'ggVG', { noremap = true, silent = true })
 
+-- Map <C-H> to switch to the previous buffer
+vim.api.nvim_set_keymap('n', '<C-H>', ':bprev<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-[>', ':bprev<CR>', { noremap = true, silent = true })
+
+-- Map <C-L> to switch to the next buffer
+vim.api.nvim_set_keymap('n', '<C-L>', ':bnext<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-]>', ':bnext<CR>', { noremap = true, silent = true })
+
+
 -- Neovide conf
 vim.g.neovide_position_animation_length = 0
 vim.g.neovide_cursor_animation_length = 0.00

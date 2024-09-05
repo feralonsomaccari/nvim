@@ -9,8 +9,8 @@ return {
 			vim.keymap.set("n", "<leader>/", builtin.live_grep, {})
 			vim.keymap.set("n", "<leader>b", builtin.buffers, {})
 
-			vim.keymap.set("n", "<leader>fd", "<cmd>Telescope dir live_grep<CR>", { noremap = true, silent = true })
-			vim.keymap.set("n", "<leader>pd", "<cmd>Telescope dir find_files<CR>", { noremap = true, silent = true })
+			-- vim.keymap.set("n", "<leader>fd", "<cmd>Telescope dir live_grep<CR>", { noremap = true, silent = true })
+			-- vim.keymap.set("n", "<leader>pd", "<cmd>Telescope dir find_files<CR>", { noremap = true, silent = true })
 		end,
 	},
 	{
@@ -18,8 +18,8 @@ return {
 		config = function()
 			require("telescope").setup({
         defaults = {
-          file_ignore_patterns = { ".git/", "node_modules/", "%.o", "%.a", "%.out", "%.class",
-            "%.pdf", "%.mkv", "%.mp4", "%.zip", ".cache", "dist", "coverage", "es5", "component" }
+          file_ignore_patterns = { ".git/", "node_modules/", "%.o", "%.a", "%.out",
+            "%.pdf", "%.mkv", "%.mp4", "%.zip", ".cache", "dist", "coverage", "es5"}
 				},
 				pickers = {
 					find_files = {

@@ -1,6 +1,6 @@
 return {
-  -- Other plugins and configurations
-  {
-    'elzr/vim-json', -- Plugin name and repository
-   },
+ "mlaursen/vim-react-snippets",
+  config = function()
+    require("vim-react-snippets").lazy_load()
+  end,
 }
