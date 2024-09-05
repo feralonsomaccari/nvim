@@ -81,7 +81,7 @@ vim.api.nvim_set_keymap('v', '<C-l>', '$', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<C-c>', '"+y', { noremap = true, silent = true })
 
 -- Reveal in Tree
-vim.keymap.set('n', '<leader>fr', ':Neotree reveal<CR>', {})
+vim.keymap.set('n', '<leader>fr', ':Neotree reveal<CR>:Neotree focus<CR>', {})
 
 vim.api.nvim_set_keymap('i', '<C-BS>', '<C-w>', { noremap = true, silent = true })
 
@@ -97,11 +97,9 @@ vim.api.nvim_set_keymap('v', 'dc', '_d', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-a>', 'ggVG', { noremap = true, silent = true })
 
 -- Map <C-H> to switch to the previous buffer
-vim.api.nvim_set_keymap('n', '<C-H>', ':bprev<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-[>', ':bprev<CR>', { noremap = true, silent = true })
 
 -- Map <C-L> to switch to the next buffer
-vim.api.nvim_set_keymap('n', '<C-L>', ':bnext<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-]>', ':bnext<CR>', { noremap = true, silent = true })
 
 
