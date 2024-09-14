@@ -38,8 +38,13 @@ return {
 				capabilities = capabilities,
 			})
 
-			vim.keymap.set("n", "<leader>h", vim.lsp.buf.hover, {})
-			vim.keymap.set("n", "<leader>g", vim.lsp.buf.definition, {})
+		vim.keymap.set("n", "<leader>h", function()
+    -- Trigger hover
+    vim.lsp.buf.hover()
+    -- Close the preview window automatically after selection
+    vim.cmd("autocmd CursorMoved,BufHidden <buffer> ++once silent! pclose!")
+end, {})
+      vim.keymap.set("n", "<leader>g", vim.lsp.buf.definition, {})
 			vim.keymap.set({ "n", "v" }, "<leader>.", vim.lsp.buf.code_action, {})
       vim.keymap.set("n", "<C-S-f>", vim.lsp.buf.format, {});
 		end,

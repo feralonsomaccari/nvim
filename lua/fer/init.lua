@@ -1,33 +1,36 @@
 vim.g.mapleader = " "
-
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
-
 vim.opt.smartindent = true
--- Use spaces instead of tabs
-vim.opt.expandtab = true
-
--- Copy indent from current line when starting a new line
-vim.opt.autoindent = true
-
+vim.opt.expandtab = true -- Use spaces instead of tabs
+vim.opt.autoindent = true -- Copy indent from current line when starting a new line
 vim.opt.wrap = false
-
 vim.opt.nu = true
 vim.opt.relativenumber = true
-
 vim.opt.termguicolors = true
-
 vim.o.signcolumn = "yes"
+vim.o.ignorecase = true -- Ignore case in searches
+vim.o.smartcase = true -- Use case sensitivity when uppercase letters are used in the search pattern
+vim.opt.clipboard:append('unnamedplus') -- Enable system clipboard support
+vim.opt.wildignore:append{'*/node_modules/*'}
+vim.o.cmdheight=0 -- Hide the command line
 
--- Ignore case in searches
-vim.o.ignorecase = true
+-- Search conf
+-- vim.o.hlsearch = false
 
--- Use case sensitivity when uppercase letters are used in the search pattern
-vim.o.smartcase = true
-
--- Enable system clipboard support
-vim.opt.clipboard:append('unnamedplus')
+-- local neotree_utils = require('neo-tree.utils')
+function search_in_neo_tree_directory()
+  local node = require('neo-tree.sources.filesystem').get_node()
+  if node and node.type == 'directory' then
+    -- Pass the directory path to Telescope
+    require('telescope.builtin').find_files({
+      cwd = node.path
+    })
+  else
+    print("Cursor is not on a directory")
+  end
+end
 
 vim.cmd([[
 let g:closetag_filenames = '*.html,*.xhtml,*.jsx,*.tsx'
@@ -83,6 +86,10 @@ vim.api.nvim_set_keymap('v', '<C-c>', '"+y', { noremap = true, silent = true })
 -- Reveal in Tree
 vim.keymap.set('n', '<leader>fr', ':Neotree reveal<CR>:Neotree focus<CR>', {})
 
+-- Search in current folder in NeoTree
+vim.api.nvim_set_keymap('n', '<leader>ff', ':lua search_in_neo_tree_directory()<CR>', { noremap = true, silent = true })
+
+-- Delete words with CTRL + backspace
 vim.api.nvim_set_keymap('i', '<C-BS>', '<C-w>', { noremap = true, silent = true })
 
 -- Delete to blackhole register
@@ -96,11 +103,63 @@ vim.api.nvim_set_keymap('v', 'dc', '_d', { noremap = true, silent = true })
 -- Normal mode mapping for <C-a> to select everything in the file
 vim.api.nvim_set_keymap('n', '<C-a>', 'ggVG', { noremap = true, silent = true })
 
--- Map <C-H> to switch to the previous buffer
+-- Map <C-[> to switch to the previous buffer
 vim.api.nvim_set_keymap('n', '<C-[>', ':bprev<CR>', { noremap = true, silent = true })
 
--- Map <C-L> to switch to the next buffer
+-- Map <C-]> to switch to the next buffer
 vim.api.nvim_set_keymap('n', '<C-]>', ':bnext<CR>', { noremap = true, silent = true })
+
+-- Explicitly map <Esc> to ensure it works
+vim.api.nvim_set_keymap('i', '<Esc>', '<Esc>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<Esc>', '<Esc>', { noremap = true, silent = true })
+
+-- Map <leader>S to select a function block
+vim.api.nvim_set_keymap('n', '<leader>s', [[:lua select_function_block()<CR>]], { noremap = true, silent = true })
+
+-- Change search function to prevent getting moved back after pressing ESC
+vim.api.nvim_set_keymap('c', '<ESC>', '<CR>', { noremap = true, silent = true })
+
+-- Disable Ctrl + Z in normal mode
+vim.api.nvim_set_keymap('n', '<C-z>', '<Nop>', { noremap = true, silent = true })
+
+-- Map gg to gg0 to move the cursor to the beginning (first character) of the file intead of top
+vim.api.nvim_set_keymap('n', 'gg', 'gg0', { noremap = true, silent = true })
+
+-- Chabge CTRL + [ and ] as history
+vim.api.nvim_set_keymap('n', '<C-[>', ':bprev<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-]>', ':bnext<CR>', { noremap = true, silent = true })
+
+-- Move line up with Shift+K
+vim.api.nvim_set_keymap('n', 'K', ':m .-2<CR>==', { noremap = true, silent = true })
+-- Move line down with Shift+J
+vim.api.nvim_set_keymap('n', 'J', ':m .+1<CR>==', { noremap = true, silent = true })
+-- Move selected block up (Visual mode) with Shift+K
+vim.api.nvim_set_keymap('v', 'K', ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
+-- Move selected block down (Visual mode) with Shift+J
+vim.api.nvim_set_keymap('v', 'J', ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
+
+-- Delete word backwards
+vim.api.nvim_set_keymap('n', 'dw', "db", { noremap = true, silent = true })
+
+-- Map the custom paste function in Visual mode
+vim.api.nvim_set_keymap('x', 'p', [[:lua paste_without_overwriting()<CR>]], { noremap = true, silent = true })
+
+-- Function to paste without overwriting the default register
+function paste_without_overwriting()
+  -- Save the current default register content to a temporary register
+  vim.cmd('let @a = @"')
+  -- Paste the content (default behavior)
+  vim.cmd('normal! p')
+  -- Restore the default register content from the temporary register
+  vim.cmd('let @" = @a')
+end
+
+
+-- Turn off paste mode when leaving insert
+vim.api.nvim_create_autocmd("InsertLeave", {
+	pattern = "*",
+	command = "set nopaste",
+})
 
 
 -- Neovide conf
@@ -111,5 +170,3 @@ vim.g.neovide_cursor_animate_in_insert_mode = false
 vim.g.neovide_cursor_animate_command_line = false
 vim.g.neovide_scroll_animation_far_lines = 0
 vim.g.neovide_scroll_animation_length = 0.00
-
-

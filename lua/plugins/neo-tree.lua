@@ -18,8 +18,10 @@ return {
 			source_selector = {
 				winbar = true,
 			},
+      disabled_filetypes = { 'packer', 'NVimTree' },
 			window = {
 				width = 36,
+        border = "none",
 			},
 		})
 	end,

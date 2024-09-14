@@ -1,0 +1,21 @@
+-- return {
+--   {
+--     "boole/boole.nvim",
+--     name = "boole",
+--     version = "*", -- or specify a version if needed
+--     config = function()
+--       require("boole").setup({
+--         mappings = {
+--           increment = '<C-)>',
+--           decrement = '<C-(>'
+--         },
+--         allow_caps_additions = {
+--           {'enable', 'disable'}
+--           -- enable → disable
+--           -- Enable → Disable
+--           -- ENABLE → DISABLE
+--         }
+--       })
+--     end,
+--   },
+-- }
