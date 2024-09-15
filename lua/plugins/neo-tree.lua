@@ -21,10 +21,39 @@ return {
         winbar = true
       },
       disabled_filetypes = { 'packer', 'NVimTree' },
+      -- Sorting and filtering options for a clean view of added/modified files
+      git_status = {
+        sort_untracked_first = true, -- Untracked files appear first, so they're clearly visible
+      },
+      default_component_configs = {
+        git_status = {
+          symbols = {
+            -- Define custom symbols for Git states (similar to VSCode)
+            added     = "✔", -- Staged for commit
+            modified  = "✎", -- Modified but not staged
+            deleted   = "✖", -- Deleted but not yet committed
+            renamed   = "➜", -- Renamed file
+            untracked = "★", -- Untracked file
+            ignored   = "◌", -- Ignored by .gitignore
+            unstaged  = "✗", -- Not staged for commit
+            staged    = "✓", -- Staged for commit
+            conflict  = "⚔", -- Merge conflict
+          },
+        },
+      },
       window = {
         width = 36,
         border = "none",
         mappings = {
+          -- Keybindings for Git actions (VSCode-like)
+          ["A"]          = "git_add_all",      -- Stage all changes
+          ["rq"]         = "git_add_file",     -- Stage selected file
+          ["rr"]         = "git_revert_file",  -- Revert changes to file
+          ["rw"]         = "git_unstage_file", -- Unstage file
+          ["rd"]         = "git_remove_file",  -- Remove file (git rm)
+          ["re"]         = "git_commit",       -- Commit changes
+          ["rp"]         = "git_push",         -- Push changes
+
           ['<leader>fp'] = function(state)
             -- Get the current node (file/folder) under the cursor
             local node = state.tree:get_node()
@@ -43,6 +72,7 @@ return {
               print("Invalid node type")
             end
           end,
+
           ['<leader>f/'] = function(state)
             -- Get the current node (file/folder) under the cursor
             local node = state.tree:get_node()
