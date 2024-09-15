@@ -19,19 +19,6 @@ vim.o.cmdheight=0 -- Hide the command line
 -- Search conf
 -- vim.o.hlsearch = false
 
--- local neotree_utils = require('neo-tree.utils')
-function search_in_neo_tree_directory()
-  local node = require('neo-tree.sources.filesystem').get_node()
-  if node and node.type == 'directory' then
-    -- Pass the directory path to Telescope
-    require('telescope.builtin').find_files({
-      cwd = node.path
-    })
-  else
-    print("Cursor is not on a directory")
-  end
-end
-
 vim.cmd([[
 let g:closetag_filenames = '*.html,*.xhtml,*.jsx,*.tsx'
 let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.tsx'
@@ -85,9 +72,6 @@ vim.api.nvim_set_keymap('v', '<C-c>', '"+y', { noremap = true, silent = true })
 
 -- Reveal in Tree
 vim.keymap.set('n', '<leader>fr', ':Neotree reveal<CR>:Neotree focus<CR>', {})
-
--- Search in current folder in NeoTree
-vim.api.nvim_set_keymap('n', '<leader>ff', ':lua search_in_neo_tree_directory()<CR>', { noremap = true, silent = true })
 
 -- Delete words with CTRL + backspace
 vim.api.nvim_set_keymap('i', '<C-BS>', '<C-w>', { noremap = true, silent = true })
@@ -160,13 +144,3 @@ vim.api.nvim_create_autocmd("InsertLeave", {
 	pattern = "*",
 	command = "set nopaste",
 })
-
-
--- Neovide conf
-vim.g.neovide_position_animation_length = 0
-vim.g.neovide_cursor_animation_length = 0.00
-vim.g.neovide_cursor_trail_size = 0
-vim.g.neovide_cursor_animate_in_insert_mode = false
-vim.g.neovide_cursor_animate_command_line = false
-vim.g.neovide_scroll_animation_far_lines = 0
-vim.g.neovide_scroll_animation_length = 0.00
