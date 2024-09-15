@@ -1,12 +1,8 @@
 return {
-	"catppuccin/nvim",
-	lazy = false,
-	name = "catppuccin",
-	priority = 1000,
-	config = function()
-		require("catppuccin").setup({
-			flavour = "mocha",
-		})
-		vim.cmd.colorscheme("catppuccin")
-	end,
+    "mg979/vim-visual-multi",
+    lazy = false,
+    name = "vim-visual-multi",
+    priority = 1000,
+    config = function()
+    end,
 }
