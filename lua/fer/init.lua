@@ -32,7 +32,7 @@ let g:closetag_regions = {
 let g:closetag_shortcut = '>'
 ]])
 
--- highlight yanked text for 200ms using the "Visual" highlight group
+-- Highlight yanked text for 200ms using the "Visual" highlight group
 vim.cmd[[
 augroup highlight_yank
 autocmd!
@@ -48,6 +48,16 @@ function ToggleTreeFocus()
   else
     vim.cmd('wincmd h')
   end
+end
+
+-- Function to paste without overwriting the default register
+function Paste_without_overwriting()
+  -- Save the current default register content to a temporary register
+  vim.cmd('let @a = @"')
+  -- Paste the content (default behavior)
+  vim.cmd('normal! p')
+  -- Restore the default register content from the temporary register
+  vim.cmd('let @" = @a')
 end
 
 -- Map Ctrl+Shift+E to call the custom function
@@ -126,21 +136,11 @@ vim.api.nvim_set_keymap('v', 'J', ":m '>+1<CR>gv=gv", { noremap = true, silent =
 vim.api.nvim_set_keymap('n', 'dw', "db", { noremap = true, silent = true })
 
 -- Map the custom paste function in Visual mode
-vim.api.nvim_set_keymap('x', 'p', [[:lua paste_without_overwriting()<CR>]], { noremap = true, silent = true })
-
--- Function to paste without overwriting the default register
-function paste_without_overwriting()
-  -- Save the current default register content to a temporary register
-  vim.cmd('let @a = @"')
-  -- Paste the content (default behavior)
-  vim.cmd('normal! p')
-  -- Restore the default register content from the temporary register
-  vim.cmd('let @" = @a')
-end
-
+vim.api.nvim_set_keymap('x', 'p', [[:lua Paste_without_overwriting()<CR>]], { noremap = true, silent = true })
 
 -- Turn off paste mode when leaving insert
 vim.api.nvim_create_autocmd("InsertLeave", {
 	pattern = "*",
 	command = "set nopaste",
 })
+

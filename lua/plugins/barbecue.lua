@@ -1,4 +1,4 @@
-return 
+return
 {
   "utilyre/barbecue.nvim",
   name = "barbecue",
