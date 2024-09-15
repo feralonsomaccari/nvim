@@ -90,7 +90,8 @@ return {
             else
               print("Invalid node type")
             end
-          end
+          end,
+          ["q"]          = "", -- This prevents `q` from closing NeoTree
         }
       }
     })
