@@ -47,12 +47,12 @@ return {
         mappings = {
           -- Keybindings for Git actions (VSCode-like)
           ["A"]          = "git_add_all",      -- Stage all changes
-          ["rq"]         = "git_add_file",     -- Stage selected file
-          ["rr"]         = "git_revert_file",  -- Revert changes to file
-          ["rw"]         = "git_unstage_file", -- Unstage file
-          ["rd"]         = "git_remove_file",  -- Remove file (git rm)
-          ["re"]         = "git_commit",       -- Commit changes
-          ["rp"]         = "git_push",         -- Push changes
+          ["eq"]         = "git_add_file",     -- Stage selected file
+          ["er"]         = "git_revert_file",  -- Revert changes to file
+          ["ew"]         = "git_unstage_file", -- Unstage file
+          ["ed"]         = "git_remove_file",  -- Remove file (git rm)
+          ["ee"]         = "git_commit",       -- Commit changes
+          ["ep"]         = "git_push",         -- Push changes
 
           ['<leader>fp'] = function(state)
             -- Get the current node (file/folder) under the cursor
