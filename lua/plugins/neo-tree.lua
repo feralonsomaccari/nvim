@@ -92,6 +92,7 @@ return {
             end
           end,
           ["q"]          = "", -- This prevents `q` from closing NeoTree
+          ["f"]          = "", -- This prevents `q` from closing NeoTree
         }
       }
     })
