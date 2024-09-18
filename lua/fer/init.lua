@@ -126,10 +126,12 @@ vim.api.nvim_set_keymap('v', 'J', ":m '>+1<CR>gv=gv", { noremap = true, silent =
 -- Delete word backwards
 vim.api.nvim_set_keymap('n', 'dw', "db", { noremap = true, silent = true })
 
--- Map the custom paste function in Visual mode
 vim.api.nvim_set_keymap('x', 'p', '"_dP', { noremap = true, silent = true })
 
--- Turn off paste mode when leaving insert
+-- Map the custom paste function in Visual mode and Normal Mode
+vim.api.nvim_set_keymap('n', '<leader>f/', ":let @/ = expand('<cword>')<CR>n", { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<leader>f/', 'y/<C-R><C-O>0<CR>', { noremap = true, silent = true })
+
 vim.api.nvim_create_autocmd("InsertLeave", {
 	pattern = "*",
 	command = "set nopaste",
