@@ -94,12 +94,6 @@ vim.api.nvim_set_keymap('v', 'dc', '_d', { noremap = true, silent = true })
 -- Normal mode mapping for <C-a> to select everything in the file
 vim.api.nvim_set_keymap('n', '<C-a>', 'ggVG', { noremap = true, silent = true })
 
--- Map <C-[> to switch to the previous buffer
-vim.api.nvim_set_keymap('n', '<C-[>', ':bprev<CR>', { noremap = true, silent = true })
-
--- Map <C-]> to switch to the next buffer
-vim.api.nvim_set_keymap('n', '<C-]>', ':bnext<CR>', { noremap = true, silent = true })
-
 -- Explicitly map <Esc> to ensure it works
 vim.api.nvim_set_keymap('i', '<Esc>', '<Esc>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<Esc>', '<Esc>', { noremap = true, silent = true })
@@ -142,18 +136,18 @@ vim.api.nvim_set_keymap('v', '<leader>fn', 'y/<C-R><C-O>0<CR>', { noremap = true
 
 
 -- Utility function to get all valid, listed buffers (ignore [No Name] buffers)
-function get_listed_buffers()
-  local buffers = {}
-  for _, buffer in ipairs(vim.api.nvim_list_bufs()) do
-    if vim.fn.buflisted(buffer) == 1 and vim.api.nvim_buf_get_name(buffer) ~= "" then
-      table.insert(buffers, buffer)
+  function get_listed_buffers()
+    local buffers = {}
+    for _, buffer in ipairs(vim.api.nvim_list_bufs()) do
+      if vim.fn.buflisted(buffer) == 1 and vim.api.nvim_buf_get_name(buffer) ~= "" then
+        table.insert(buffers, buffer)
+      end
     end
+    return buffers
   end
-  return buffers
-end
 
 -- Function to move to the next buffer without cycling
-function next_buffer_no_cycle()
+ function next_buffer_no_cycle()
   local buffers = get_listed_buffers()
   local current = vim.api.nvim_get_current_buf()
 
@@ -172,7 +166,7 @@ function next_buffer_no_cycle()
 end
 
 -- Function to move to the previous buffer without cycling
-function prev_buffer_no_cycle()
+ function prev_buffer_no_cycle()
   local buffers = get_listed_buffers()
   local current = vim.api.nvim_get_current_buf()
 
@@ -190,6 +184,72 @@ function prev_buffer_no_cycle()
   end
 end
 
+-- Function to close all buffers after the current one, excluding the new buffer
+ function close_buffers_after_current(new_buf)
+  local buffers = get_listed_buffers()
+  local current_buf = vim.api.nvim_get_current_buf() -- Get the current buffer
+
+  -- Iterate through the buffer list to find the current buffer's position
+  for i, buffer in ipairs(buffers) do
+    if buffer == current_buf then
+      -- Close all buffers after the current one, but skip the new buffer
+      for j = #buffers, i + 1, -1 do
+        if buffers[j] ~= new_buf then
+          vim.api.nvim_buf_delete(buffers[j], { force = true }) -- Force close each buffer
+        end
+      end
+      return
+    end
+  end
+end
+
+-- Function to move the LSP buffer next to the current buffer by swapping
+ function move_lsp_buffer_next_to_current(new_buf)
+  local current_buf = vim.api.nvim_get_current_buf() -- Get the current buffer
+
+  -- First, switch to the new buffer
+  vim.cmd('buffer ' .. new_buf)
+
+  -- Switch back to the original buffer to ensure the order
+  vim.cmd('b#') -- This will put the new buffer next to the current one in the buffer list
+end
+
+-- Auto-command to trigger buffer cleanup when a new buffer is added
+vim.api.nvim_create_autocmd("BufAdd", {
+  callback = function(args)
+    -- Ensure we close buffers after the current, but skip the new one
+    close_buffers_after_current(args.buf)
+  end
+})
+
+-- Track whether an LSP buffer is being opened
+local is_lsp_jump = false
+
+-- Wrap LSP definition in a function to set the flag
+vim.keymap.set("n", "<leader>g", function()
+  is_lsp_jump = true -- Set flag to indicate LSP definition was used
+  vim.lsp.buf.definition()
+end, {})
+
+-- Auto-command to trigger buffer cleanup and reordering after LSP 'go to definition'
+vim.api.nvim_create_autocmd("BufWinEnter", {
+  pattern = "*",
+  callback = function()
+    if is_lsp_jump then
+      -- If an LSP definition jump just occurred, clean up the buffers
+      local new_buf = vim.api.nvim_get_current_buf()
+
+      -- Move the new LSP buffer next to the current one
+      move_lsp_buffer_next_to_current(new_buf)
+
+      -- Clean up the buffers
+      close_buffers_after_current(new_buf)
+
+      is_lsp_jump = false -- Reset the flag after cleanup
+    end
+  end
+})
+
 -- Map the keys to the custom buffer navigation functions
-vim.api.nvim_set_keymap('n', '<leader>bn', '<cmd>lua next_buffer_no_cycle()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>bp', '<cmd>lua prev_buffer_no_cycle()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-]>', '<cmd>lua next_buffer_no_cycle()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-[>', '<cmd>lua prev_buffer_no_cycle()<CR>', { noremap = true, silent = true })

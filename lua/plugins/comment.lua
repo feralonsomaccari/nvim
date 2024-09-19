@@ -6,9 +6,10 @@ return {
       pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
     })
 
-    -- vim.keymap.set("n", "<C-_>", function() require('Comment.api').toggle.linewise.current() end, { noremap = true, silent = true })
-
     vim.keymap.set("n", "<C-/>", function() require('Comment.api').toggle.linewise.current() end,
       { noremap = true, silent = true })
+    vim.keymap.set("v", "<C-/>", function() require('Comment.api').toggle.linewise.current() end,
+      { noremap = true, silent = true })
+
   end,
 }

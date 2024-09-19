@@ -21,10 +21,10 @@ return {
       })
 
       -- Keybinding to open Diffview
-      vim.api.nvim_set_keymap('n', '<leader>go', '<cmd>DiffviewOpen<CR>', { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', '<leader>jo', '<cmd>DiffviewOpen<CR>', { noremap = true, silent = true })
 
       -- Keybinding to close Diffview
-      vim.api.nvim_set_keymap('n', '<leader>gq', '<cmd>DiffviewClose<CR>', { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', '<leader>jq', '<cmd>DiffviewClose<CR>', { noremap = true, silent = true })
 
       -- Tab and Shift-Tab mappings to navigate buffers
       vim.api.nvim_set_keymap('n', '<Tab>', ':bnext<CR>', { noremap = true, silent = true })
