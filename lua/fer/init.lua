@@ -3,18 +3,18 @@ vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.smartindent = true
-vim.opt.expandtab = true -- Use spaces instead of tabs
+vim.opt.expandtab = true  -- Use spaces instead of tabs
 vim.opt.autoindent = true -- Copy indent from current line when starting a new line
 vim.opt.wrap = false
 vim.opt.number = false
 vim.opt.relativenumber = false
 vim.opt.termguicolors = true
 vim.o.signcolumn = "yes"
-vim.o.ignorecase = true -- Ignore case in searches
-vim.o.smartcase = true -- Use case sensitivity when uppercase letters are used in the search pattern
+vim.o.ignorecase = true                 -- Ignore case in searches
+vim.o.smartcase = true                  -- Use case sensitivity when uppercase letters are used in the search pattern
 vim.opt.clipboard:append('unnamedplus') -- Enable system clipboard support
-vim.opt.wildignore:append{'*/node_modules/*'}
-vim.o.cmdheight=0 -- Hide the command line
+vim.opt.wildignore:append { '*/node_modules/*' }
+vim.o.cmdheight = 0                     -- Hide the command line
 vim.opt.fillchars = "eob: "
 
 -- Search conf
@@ -34,7 +34,7 @@ let g:closetag_shortcut = '>'
 ]])
 
 -- Highlight yanked text for 200ms using the "Visual" highlight group
-vim.cmd[[
+vim.cmd [[
 augroup highlight_yank
 autocmd!
 au TextYankPost * silent! lua vim.highlight.on_yank({higroup="Visual", timeout=200})
@@ -50,6 +50,12 @@ function ToggleTreeFocus()
     vim.cmd('wincmd h')
   end
 end
+
+-- Exit 'paste mode' after pasting
+vim.api.nvim_create_autocmd("InsertLeave", {
+  pattern = "*",
+  command = "set nopaste",
+})
 
 -- Map Ctrl+Shift+E to call the custom function
 vim.api.nvim_set_keymap('n', '<C-S-e>', ':lua ToggleTreeFocus()<CR>', { noremap = true, silent = true })
@@ -132,8 +138,58 @@ vim.api.nvim_set_keymap('x', 'p', '"_dP', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>fn', ":let @/ = expand('<cword>')<CR>n", { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<leader>fn', 'y/<C-R><C-O>0<CR>', { noremap = true, silent = true })
 
-vim.api.nvim_create_autocmd("InsertLeave", {
-	pattern = "*",
-	command = "set nopaste",
-})
 
+
+
+-- Utility function to get all valid, listed buffers (ignore [No Name] buffers)
+function get_listed_buffers()
+  local buffers = {}
+  for _, buffer in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.fn.buflisted(buffer) == 1 and vim.api.nvim_buf_get_name(buffer) ~= "" then
+      table.insert(buffers, buffer)
+    end
+  end
+  return buffers
+end
+
+-- Function to move to the next buffer without cycling
+function next_buffer_no_cycle()
+  local buffers = get_listed_buffers()
+  local current = vim.api.nvim_get_current_buf()
+
+  -- Find the current buffer's position in the list
+  for i, buffer in ipairs(buffers) do
+    if buffer == current then
+      if i == #buffers then
+        -- print("End of buffer list")
+        return
+      else
+        vim.api.nvim_set_current_buf(buffers[i + 1])
+        return
+      end
+    end
+  end
+end
+
+-- Function to move to the previous buffer without cycling
+function prev_buffer_no_cycle()
+  local buffers = get_listed_buffers()
+  local current = vim.api.nvim_get_current_buf()
+
+  -- Find the current buffer's position in the list
+  for i, buffer in ipairs(buffers) do
+    if buffer == current then
+      if i == 1 then
+        -- print("Start of buffer list")
+        return
+      else
+        vim.api.nvim_set_current_buf(buffers[i - 1])
+        return
+      end
+    end
+  end
+end
+
+-- Map the keys to the custom buffer navigation functions
+vim.api.nvim_set_keymap('n', '<leader>bn', '<cmd>lua next_buffer_no_cycle()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>bp', '<cmd>lua prev_buffer_no_cycle()<CR>', { noremap = true, silent = true })
