@@ -6,7 +6,7 @@ vim.opt.smartindent = true
 vim.opt.expandtab = true  -- Use spaces instead of tabs
 vim.opt.autoindent = true -- Copy indent from current line when starting a new line
 vim.opt.wrap = false
-vim.opt.number = false
+vim.opt.number = true
 vim.opt.relativenumber = false
 vim.opt.termguicolors = true
 vim.o.signcolumn = "yes"
@@ -184,7 +184,7 @@ end
   end
 end
 
--- Function to close all buffers after the current one, excluding the new buffer
+--[[ -- Function to close all buffers after the current one, excluding the new buffer
  function close_buffers_after_current(new_buf)
   local buffers = get_listed_buffers()
   local current_buf = vim.api.nvim_get_current_buf() -- Get the current buffer
@@ -203,6 +203,8 @@ end
   end
 end
 
+- ]]
+--[[ 
 -- Function to move the LSP buffer next to the current buffer by swapping
  function move_lsp_buffer_next_to_current(new_buf)
   local current_buf = vim.api.nvim_get_current_buf() -- Get the current buffer
@@ -220,9 +222,9 @@ vim.api.nvim_create_autocmd("BufAdd", {
     -- Ensure we close buffers after the current, but skip the new one
     close_buffers_after_current(args.buf)
   end
-})
+}) ]]
 
--- Track whether an LSP buffer is being opened
+--[[ -- Track whether an LSP buffer is being opened
 local is_lsp_jump = false
 
 -- Wrap LSP definition in a function to set the flag
@@ -249,6 +251,9 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
     end
   end
 })
+
+- ]]
+
 
 -- Map the keys to the custom buffer navigation functions
 vim.api.nvim_set_keymap('n', '<C-]>', '<cmd>lua next_buffer_no_cycle()<CR>', { noremap = true, silent = true })
