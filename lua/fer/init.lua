@@ -56,10 +56,13 @@ end
 vim.api.nvim_set_keymap('n', '<C-S-e>', ':lua ToggleTreeFocus()<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-e>', ':lua ToggleTreeFocus()<CR>', { noremap = true, silent = true })
 
--- Remap Ctrl+J to behave like Ctrl+D (half-page down)
+-- Remap Ctrl+J to behave like Ctrl+D (half-page down) in normal and visual modes
 vim.api.nvim_set_keymap('n', '<C-j>', '5j', { noremap = true, silent = true })
--- Remap Ctrl+K to behave like Ctrl+U (half-page up)
+vim.api.nvim_set_keymap('v', '<C-j>', '5j', { noremap = true, silent = true })
+
+-- Remap Ctrl+K to behave like Ctrl+U (half-page up) in normal and visual modes
 vim.api.nvim_set_keymap('n', '<C-k>', '5k', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<C-k>', '5k', { noremap = true, silent = true })
 
 -- Remap 0 to Ctrl+H in Normal mode and Visual mode
 vim.api.nvim_set_keymap('n', '<C-h>', '0', { noremap = true, silent = true })
