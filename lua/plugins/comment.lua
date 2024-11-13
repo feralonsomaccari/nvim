@@ -12,4 +12,7 @@ return {
       { noremap = true, silent = true })
 
   end,
+
+
+  -- Note: use gc and gb
 }
