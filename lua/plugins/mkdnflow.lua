@@ -28,7 +28,7 @@ return {
       })
 
       -- Open the main note or index file
-      vim.cmd("edit ~/Documents/notes/index.md")
+      vim.cmd("edit ~/Documents/notes/README.md")
 
       -- Store the buffer and window IDs in a table for cleanup
       local floating_buffers = { buf } -- Start by tracking the first buffer
