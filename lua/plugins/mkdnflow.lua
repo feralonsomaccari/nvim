@@ -73,8 +73,5 @@ return {
     -- Key mapping to spawn the mkdnflow window, globally accessible
     vim.keymap.set("n", "<Leader>wi", spawn_mkdnflow_window, { noremap = true, silent = true })
 
-    -- Key mappings for creating and finding notes in the global directory
-    vim.keymap.set("n", "<Leader>mn", ":MkdnNew<CR>", { noremap = true, silent = true })  -- Create a new note in ~/notes
-    vim.keymap.set("n", "<Leader>mf", ":MkdnFind<CR>", { noremap = true, silent = true }) -- Find a note in ~/notes
-  end,
+    end,
 }
