@@ -18,7 +18,7 @@ return {
       },
       close_if_last_window = true,
       source_selector = {
-        winbar = true
+        winbar = false
       },
       disabled_filetypes = { 'packer', 'NVimTree' },
       -- Sorting and filtering options for a clean view of added/modified files
@@ -44,6 +44,7 @@ return {
       window = {
         width = 36,
         border = "none",
+        title = "",
         mappings = {
           -- Keybindings for Git actions (VSCode-like)
           ["A"]          = "git_add_all",      -- Stage all changes
