@@ -1,12 +1,18 @@
+--[[
+##################################################
+#                OPTIONS CONFIGURATION           #
+##################################################
+]]
+
 vim.g.mapleader = " "
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.smartindent = true
-vim.opt.expandtab = true  -- Use spaces instead of tabs
-vim.opt.autoindent = true -- Copy indent from current line when starting a new line
+vim.opt.expandtab = true                -- Use spaces instead of tabs
+vim.opt.autoindent = true               -- Copy indent from current line when starting a new line
 vim.opt.wrap = false
-vim.opt.number = true
+vim.opt.number = false
 vim.opt.relativenumber = false
 vim.opt.termguicolors = true
 vim.o.signcolumn = "yes"
@@ -17,9 +23,15 @@ vim.opt.wildignore:append { '*/node_modules/*' }
 vim.o.cmdheight = 0                     -- Hide the command line
 vim.opt.fillchars = "eob: "
 vim.opt.swapfile = false
+vim.opt.incsearch = true                -- Enable incremental search
 
--- Search conf
--- vim.o.hlsearch = false
+
+--[[
+##################################################
+#                CUSTOM COMMANDS                 #
+##################################################
+]]
+
 
 vim.cmd([[
 let g:closetag_filenames = '*.html,*.xhtml,*.jsx,*.tsx'
@@ -51,6 +63,13 @@ function ToggleTreeFocus()
     vim.cmd('wincmd h')
   end
 end
+
+--[[
+##################################################
+#                MAPPINGS                        #
+##################################################
+]]
+
 
 -- Map Ctrl+Shift+E to call the custom function
 vim.api.nvim_set_keymap('n', '<C-S-e>', ':lua ToggleTreeFocus()<CR>', { noremap = true, silent = true })
@@ -109,32 +128,33 @@ vim.api.nvim_set_keymap('n', '<C-z>', '<Nop>', { noremap = true, silent = true }
 vim.api.nvim_set_keymap('n', 'gg', 'gg0', { noremap = true, silent = true })
 
 -- Chabge CTRL + [ and ] as history
--- vim.api.nvim_set_keymap('n', '<C-[>', ':bprev<CR>', { noremap = true, silent = true })
--- vim.api.nvim_set_keymap('n', '<C-]>', ':bnext<CR>', { noremap = true, silent = true })
-
 vim.api.nvim_set_keymap('n', '<C-[>', ':lua GoToPrevBuffer()<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-]>', ':lua GoToNextBuffer()<CR>', { noremap = true, silent = true })
 
--- Move line up with Shift+K
+-- Move line up with Shift+K or Shift+J
 vim.api.nvim_set_keymap('n', 'K', ':m .-2<CR>==', { noremap = true, silent = true })
--- Move line down with Shift+J
 vim.api.nvim_set_keymap('n', 'J', ':m .+1<CR>==', { noremap = true, silent = true })
--- Move selected block up (Visual mode) with Shift+K
+
+-- Move selected block (Visual mode) with Shift+K or Shift+J
 vim.api.nvim_set_keymap('v', 'K', ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
--- Move selected block down (Visual mode) with Shift+J
 vim.api.nvim_set_keymap('v', 'J', ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
 
 -- Delete word backwards
 vim.api.nvim_set_keymap('n', 'dw', "db", { noremap = true, silent = true })
 
+-- Cuts without saving to clipboard
 vim.api.nvim_set_keymap('x', 'p', '"_dP', { noremap = true, silent = true })
 
 -- Map the custom paste function in Visual mode and Normal Mode
 vim.api.nvim_set_keymap('n', '<leader>fn', ":let @/ = expand('<cword>')<CR>n", { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<leader>fn', 'y/<C-R><C-O>0<CR>', { noremap = true, silent = true })
 
--- Enable incremental search
-vim.opt.incsearch = true
+
+--[[
+##################################################
+#                CUSTOM FUNCTIONS                #
+##################################################
+]]
 
 -- Define a function to handle the cursor position
 local function handle_search_cursor()
