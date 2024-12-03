@@ -144,10 +144,18 @@ vim.api.nvim_set_keymap('n', 'dw', "db", { noremap = true, silent = true })
 
 -- Cuts without saving to clipboard
 vim.api.nvim_set_keymap('x', 'p', '"_dP', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('x', 'y', 'ygv<Esc>', { noremap = true, silent = true })
 
 -- Map the custom paste function in Visual mode and Normal Mode
 vim.api.nvim_set_keymap('n', '<leader>fn', ":let @/ = expand('<cword>')<CR>n", { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<leader>fn', 'y/<C-R><C-O>0<CR>', { noremap = true, silent = true })
+
+-- Make shift+V to select from the cursor to the end of the line
+vim.api.nvim_set_keymap('n', 'V', '0v$', { noremap = true, silent = true })
+
+-- Modify shift+G to also put the cursor in last character in viusual mode and normal mode
+vim.api.nvim_set_keymap('x', 'G', 'G$', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'G', 'G$', { noremap = true, silent = true })
 
 
 --[[

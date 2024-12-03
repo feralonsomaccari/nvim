@@ -11,7 +11,7 @@ return {
     })
 
     -- Optional keybinding for opening Neogit
-    vim.keymap.set('n', '<leader>gs', function()
+    vim.keymap.set('n', '<leader>lg', function()
       neogit.open() -- Opens the Neogit status window
     end, { noremap = true, silent = true })
   end
