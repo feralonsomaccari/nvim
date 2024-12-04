@@ -2,11 +2,11 @@ return {
   'jakewvincent/mkdnflow.nvim',
   config = function()
     require('mkdnflow').setup({
-      notes_dir = "~/notes",               -- This is the global directory for your notes
+      notes_dir = "~/notes", -- This is the global directory for your notes
       mappings = {
-        MkdnNew = { "n", "<Leader>mn" },   -- Create a new note
-        MkdnFind = { "n", "<Leader>mf" },  -- Find an existing note
-        MkdnNextLink = { "n", "<Leader>nl" } -- Example: move to next link
+        MkdnNew = { "n", "<Leader>mn" },
+        MkdnFind = { "n", "<Leader>mf" },
+        MkdnNextLink = { "n", "<Leader>nl" }
       }
     })
 
@@ -27,22 +27,19 @@ return {
         border = 'rounded',
       })
 
-      -- Open the main note or index file
       vim.cmd("edit ~/Documents/notes/README.md")
 
-      -- Store the buffer and window IDs in a table for cleanup
+      
       local floating_buffers = { buf } -- Start by tracking the first buffer
       local floating_window = win
 
-      -- Optional: Map <Esc> to close the floating window
+    
       vim.api.nvim_buf_set_keymap(buf, 'n', '<Esc>', ':bd!<CR>', { noremap = true, silent = true })
 
       -- Function to safely close all buffers related to mkdnflow when the floating window is closed
       local function close_mkdnflow_buffers()
-        -- Check if the floating window is still valid
         if vim.api.nvim_win_is_valid(floating_window) then
           for _, buffer in ipairs(floating_buffers) do
-            -- Ensure the buffer is valid before deleting it
             if vim.api.nvim_buf_is_valid(buffer) then
               vim.api.nvim_buf_delete(buffer, { force = true })
             end
@@ -61,16 +58,13 @@ return {
       vim.api.nvim_create_autocmd("BufEnter", {
         pattern = "*",
         callback = function()
-          -- Only track buffers if the floating window is still valid
           if vim.api.nvim_win_is_valid(floating_window) and vim.api.nvim_win_get_buf(floating_window) == vim.api.nvim_get_current_buf() then
-            -- Add the new buffer to our list of buffers to close
             table.insert(floating_buffers, vim.api.nvim_get_current_buf())
           end
         end,
       })
     end
 
-    -- Key mapping to spawn the mkdnflow window, globally accessible
     vim.keymap.set("n", "<Leader>wi", spawn_mkdnflow_window, { noremap = true, silent = true })
 
     end,

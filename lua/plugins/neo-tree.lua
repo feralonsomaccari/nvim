@@ -21,7 +21,6 @@ return {
         winbar = false
       },
       disabled_filetypes = { 'packer', 'NVimTree' },
-      -- Sorting and filtering options for a clean view of added/modified files
       git_status = {
         sort_untracked_first = true, -- Untracked files appear first, so they're clearly visible
       },
@@ -55,17 +54,15 @@ return {
           ["ee"]         = "git_commit",       -- Commit changes
           ["ep"]         = "git_push",         -- Push changes
 
+          -- Get the current node (file/folder) under the cursor
           ['<leader>fp'] = function(state)
-            -- Get the current node (file/folder) under the cursor
             local node = state.tree:get_node()
 
-            -- Check if it's a valid directory, then search within it using Telescope
             if node and node.type == "directory" then
               require('telescope.builtin').find_files({
-                cwd = node.path -- Search inside the directory
+                cwd = node.path 
               })
             elseif node and node.type == "file" then
-              -- If it's a file, search in the parent directory
               require('telescope.builtin').find_files({
                 cwd = vim.fn.fnamemodify(node.path, ":h")
               })
@@ -75,16 +72,13 @@ return {
           end,
 
           ['<leader>f/'] = function(state)
-            -- Get the current node (file/folder) under the cursor
             local node = state.tree:get_node()
 
-            -- Check if it's a valid directory, then perform live grep in that directory using Telescope
             if node and node.type == "directory" then
               require('telescope.builtin').live_grep({
                 cwd = node.path -- Live grep inside the directory
               })
             elseif node and node.type == "file" then
-              -- If it's a file, live grep in the parent directory
               require('telescope.builtin').live_grep({
                 cwd = vim.fn.fnamemodify(node.path, ":h")
               })

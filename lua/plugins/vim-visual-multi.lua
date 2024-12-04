@@ -4,5 +4,5 @@ return {
     name = "vim-visual-multi",
     priority = 1000,
     config = function()
-    end,
+    end
 }
