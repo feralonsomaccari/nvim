@@ -1,18 +1,16 @@
 return {
   'NeogitOrg/neogit',
-  requires = 'nvim-lua/plenary.nvim', -- Required dependency
+  requires = 'nvim-lua/plenary.nvim',
   config = function()
     local neogit = require('neogit')
     neogit.setup({
-      -- Customize Neogit configuration here
       integrations = {
-        diffview = true, -- Enable integration with Diffview.nvim if installed
+        diffview = true,
       },
     })
 
-    -- Optional keybinding for opening Neogit
-    vim.keymap.set('n', '<leader>lg', function()
-      neogit.open() -- Opens the Neogit status window
+    vim.keymap.set('n', '<leader>ga', function()
+      neogit.open()
     end, { noremap = true, silent = true })
   end
 }
