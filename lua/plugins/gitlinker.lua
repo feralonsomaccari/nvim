@@ -29,6 +29,6 @@ return {
       require('gitlinker').get_buf_range_url('v')
     end, { noremap = true, silent = true, desc = "Get Git link for range" })
 
-    vim.api.nvim_set_keymap('n', '<leader>gf', '<cmd>lua require"gitlinker".get_repo_url()<cr>', { silent = true })
+    vim.api.nvim_set_keymap('n', '<leader>gr', '<cmd>lua require"gitlinker".get_repo_url()<cr>', { silent = true })
   end,
 }
