@@ -71,7 +71,7 @@ end
 ]]
 
 
--- Map Ctrl+Shift+E to call the custom function
+-- Map Ctrl+E to go to neo tree
 vim.api.nvim_set_keymap('n', '<C-S-e>', ':lua ToggleTreeFocus()<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-e>', ':lua ToggleTreeFocus()<CR>', { noremap = true, silent = true })
 
@@ -82,14 +82,6 @@ vim.api.nvim_set_keymap('v', '<C-j>', '5j', { noremap = true, silent = true })
 -- Remap Ctrl+K to behave like Ctrl+U (half-page up) in normal and visual modes
 vim.api.nvim_set_keymap('n', '<C-k>', '5k', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<C-k>', '5k', { noremap = true, silent = true })
-
--- Remap 0 to Ctrl+H in Normal mode and Visual mode
-vim.api.nvim_set_keymap('n', '<C-h>', '0', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', '<C-h>', '0', { noremap = true, silent = true })
-
--- Remap $ to Ctrl+L in Normal mode and Visual mode
-vim.api.nvim_set_keymap('n', '<C-l>', '$', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', '<C-l>', '$', { noremap = true, silent = true })
 
 -- Map Ctrl+C in visual mode to yank to clipboard
 vim.api.nvim_set_keymap('v', '<C-c>', '"+y', { noremap = true, silent = true })
@@ -114,9 +106,6 @@ vim.api.nvim_set_keymap('n', '<C-a>', 'ggVG', { noremap = true, silent = true })
 -- Explicitly map <Esc> to ensure it works
 vim.api.nvim_set_keymap('i', '<Esc>', '<Esc>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<Esc>', '<Esc>', { noremap = true, silent = true })
-
--- Map <leader>S to select a function block
-vim.api.nvim_set_keymap('n', '<leader>s', [[:lua select_function_block()<CR>]], { noremap = true, silent = true })
 
 -- Change search function to prevent getting moved back after pressing ESC
 vim.api.nvim_set_keymap('c', '<ESC>', '<CR>', { noremap = true, silent = true })
