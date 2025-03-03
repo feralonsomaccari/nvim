@@ -12,7 +12,7 @@ vim.opt.smartindent = true
 vim.opt.expandtab = true                -- Use spaces instead of tabs
 vim.opt.autoindent = true               -- Copy indent from current line when starting a new line
 vim.opt.wrap = false
-vim.opt.number = false
+vim.opt.number = true
 vim.opt.relativenumber = false
 vim.opt.termguicolors = true
 vim.o.signcolumn = "yes"
@@ -24,6 +24,8 @@ vim.o.cmdheight = 0                     -- Hide the command line
 vim.opt.fillchars = "eob: "
 vim.opt.swapfile = false
 vim.opt.incsearch = true                -- Enable incremental search
+vim.opt.cursorline = true          -- Highlight the current line
+
 
 
 --[[
@@ -162,6 +164,7 @@ local function handle_search_cursor()
   end
 end
 
+
 -- Create an autocommand that listens to search events
 vim.api.nvim_create_autocmd("CmdlineChanged", {
   pattern = "/",
@@ -172,6 +175,7 @@ vim.api.nvim_create_autocmd("CmdlineChanged", {
 function IsUnnamedBuffer(bufnr)
   return vim.fn.bufname(bufnr) == ""
 end
+
 
 -- Custom function for navigating to the previous buffer, skipping unnamed buffers
 function GoToPrevBuffer()
