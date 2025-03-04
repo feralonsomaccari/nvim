@@ -11,7 +11,7 @@ return {
         return main_buffer_name
       else
         -- Update the main buffer name when we are in a regular buffer
-        main_buffer_name = vim.fn.expand('%:t')
+        main_buffer_name = vim.fn.expand('%:p')
         return main_buffer_name
       end
     end
