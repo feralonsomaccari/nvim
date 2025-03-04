@@ -8,5 +8,5 @@
 6) Remove auto adding comment when pressing enter after a commented line
 7) If I do :w in neotree should save current buffer instead of trying to save the tree
 8) ~~Show number line in the current line I am~~
-9) Find a propper keybinding for closing current buffer
+9) ~~Find a propper keybinding for closing current buffer~~
 10) Deactivate J and K so it dont move the line up and down (it should still work with Shift + j/k)
