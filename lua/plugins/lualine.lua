@@ -50,9 +50,14 @@ return {
       options = {
         theme = {
           normal = {
-            a = { bg = '#000' }, -- Customize background color
-            b = { bg = '#000' },
-            c = { bg = '#000' }
+            a = { fg = '#C0C0C0', bg = '#000' }, -- Change fg (text color) to red
+            b = { fg = '#C0C0C0', bg = '#000' },
+            c = { fg = '#C0C0C0', bg = '#000' }
+          },
+          inactive = {
+            a = { fg = '#C0C0C0', bg = '#000' }, -- Same here for inactive sections
+            b = { fg = '#C0C0C0', bg = '#000' },
+            c = { fg = '#C0C0C0', bg = '#000' }
           }
         },
         section_separators = '',   -- Remove section separators
@@ -62,3 +67,4 @@ return {
     })
   end
 }
+

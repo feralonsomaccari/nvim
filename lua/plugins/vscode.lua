@@ -34,6 +34,9 @@ return {
 
     -- Modify the root folder highlight group
     vim.api.nvim_set_hl(0, 'NeoTreeRootName', { bold = false, italic = false, fg = '#C0C0C0' })
+
+    -- Change the folder text color
+    vim.api.nvim_set_hl(0, 'NeoTreeDirectoryName', { fg = '#C0C0C0' })
   end
 
 }

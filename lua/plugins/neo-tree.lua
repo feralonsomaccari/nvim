@@ -44,7 +44,7 @@ return {
             deleted   = "×", -- Deleted but not yet committed
             renamed   = "➜", -- Renamed file
             untracked = "★", -- Untracked file
-            ignored   = "◌", -- Ignored by .gitignore
+            ignored   = "", -- Ignored by .gitignore
             unstaged  = "∪", -- Not staged for commit
             staged    = "✓", -- Staged for commit
             conflict  = "⚔", -- Merge conflict
