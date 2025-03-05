@@ -24,8 +24,7 @@ vim.o.cmdheight = 0                     -- Hide the command line
 vim.opt.fillchars = "eob: "
 vim.opt.swapfile = false
 vim.opt.incsearch = true                -- Enable incremental search
-vim.opt.cursorline = true          -- Highlight the current line
-
+vim.opt.cursorline = true               -- Highlight the current line
 
 
 --[[
@@ -34,6 +33,8 @@ vim.opt.cursorline = true          -- Highlight the current line
 ##################################################
 ]]
 
+-- Stop auto-comenting in a new line
+vim.cmd [[autocmd FileType * set formatoptions-=ro]]
 
 vim.cmd([[
 let g:closetag_filenames = '*.html,*.xhtml,*.jsx,*.tsx'
