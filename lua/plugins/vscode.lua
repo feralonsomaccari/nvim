@@ -19,18 +19,19 @@ return {
     ---- Neotree selected item highlight (background)
     vim.api.nvim_set_hl(0, 'NeoTreeCursorLine', { bg = '#3e4451' })
 
-
     -- -- Override background color
     -- vim.cmd('highlight Normal guibg=#000')        -- Set background color to red (hex code)
-    -- vim.cmd('highlight LineNr guibg=#000')        -- Set line number background color to black (hex code)
     -- vim.cmd('highlight SignColumn guibg=#000')
 
-    vim.api.nvim_set_hl(0, 'NeoTreeGitIgnored', { fg = '#3a3a3a' })
+    vim.api.nvim_set_hl(0, 'NeoTreeGitIgnored', { fg = '#6c6c6c' })
     vim.api.nvim_set_hl(0, 'Comment', { fg = '#3a3a3a' })
 
-    vim.api.nvim_set_hl(0, 'VertSplit', { fg = '#1E1E1E' }) -- Vertical split separator
-    vim.api.nvim_set_hl(0, 'StatusLine', { fg = '#1E1E1E' }) -- Status line
+    vim.api.nvim_set_hl(0, 'VertSplit', { fg = '#1E1E1E' })    -- Vertical split separator
+    vim.api.nvim_set_hl(0, 'StatusLine', { fg = '#1E1E1E' })   -- Status line
     vim.api.nvim_set_hl(0, 'WinSeparator', { fg = '#1E1E1E' }) -- Window separator
+    vim.api.nvim_set_hl(0, 'NeoTreeDotfile', { fg = '#C0C0C0' })
+    vim.api.nvim_set_hl(0, 'NeoTreeFileName', { fg = '#C0C0C0' })
+
   end
 
 }

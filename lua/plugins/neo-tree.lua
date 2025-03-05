@@ -1,7 +1,7 @@
 return {
   "nvim-neo-tree/neo-tree.nvim",
   branch = "v3.x",
-  dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons", "MunifTanjim/nui.nvim" },
+  dependencies = { "nvim-lua/plenary.nvim", "MunifTanjim/nui.nvim" },
   config = function()
     vim.keymap.set("n", "<leader>wq", ":Neotree source=filesystem position=left<CR>",
       { noremap = true, silent = true })
@@ -25,16 +25,27 @@ return {
         sort_untracked_first = true, -- Untracked files appear first, so they're clearly visible
       },
       default_component_configs = {
+        icon = {
+          enabled = true, -- Enable icons for folders
+          folder_empty = "◎", -- Minimal circle for empty folder
+          folder_closed = "◎", -- Closed folder circle
+          folder_open = "◯", -- Open folder circle
+          file = "", -- No icon for files
+          directory = "", -- No icon for directories (folders)
+          symlink = "", -- No icon for symlinks
+          bookmark = "", -- No icon for bookmarks
+          default = "",
+        },
+
         git_status = {
           symbols = {
-            -- Define custom symbols for Git states (similar to VSCode)
             added     = "✔", -- Staged for commit
             modified  = "✎", -- Modified but not staged
-            deleted   = "✖", -- Deleted but not yet committed
+            deleted   = "×", -- Deleted but not yet committed
             renamed   = "➜", -- Renamed file
             untracked = "★", -- Untracked file
             ignored   = "◌", -- Ignored by .gitignore
-            unstaged  = "✗", -- Not staged for commit
+            unstaged  = "∪", -- Not staged for commit
             staged    = "✓", -- Staged for commit
             conflict  = "⚔", -- Merge conflict
           },
@@ -60,7 +71,7 @@ return {
 
             if node and node.type == "directory" then
               require('telescope.builtin').find_files({
-                cwd = node.path 
+                cwd = node.path
               })
             elseif node and node.type == "file" then
               require('telescope.builtin').find_files({
@@ -87,9 +98,10 @@ return {
             end
           end,
           ["q"]          = "", -- This prevents `q` from closing NeoTree
-          ["f"]          = "", -- This prevents `q` from closing NeoTree
+          ["f"]          = "", -- This prevents from closing NeoTree
         }
       }
     })
   end
 }
+
