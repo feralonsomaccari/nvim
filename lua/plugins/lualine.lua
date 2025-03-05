@@ -3,36 +3,45 @@ return {
   config = function()
     -- Variable to store the main buffer name
     local main_buffer_name = ""
+    local project_root = vim.fn.getcwd()
+
+    -- Define highlight for filename
+    vim.api.nvim_set_hl(0, "LualineFilename", { fg = "#E5C07B", bg = "NONE" })
 
     -- Function to get the main buffer name
     local function get_main_buffer_name()
-      -- If we're in Neo-tree, return the stored main buffer name
       if vim.bo.filetype == "neo-tree" then
-        return main_buffer_name
+        if main_buffer_name == "" then
+          return "Neo-tree"
+        end
+        local path = vim.fn.fnamemodify(main_buffer_name, ":h")
+        local filename = vim.fn.fnamemodify(main_buffer_name, ":t")
+        return string.gsub(path, "^" .. project_root, "") .. "/" .. "%#LualineFilename#" .. filename .. "%#Normal#"
       else
-        -- Update the main buffer name when we are in a regular buffer
         main_buffer_name = vim.fn.expand('%:p')
-        return main_buffer_name
+        local path = vim.fn.fnamemodify(main_buffer_name, ":h")
+        local filename = vim.fn.fnamemodify(main_buffer_name, ":t")
+        return string.gsub(path, "^" .. project_root, "") .. "/" .. "%#LualineFilename#" .. filename .. "%#Normal#"
       end
     end
 
     -- Set up lualine configuration
     require('lualine').setup({
       sections = {
-        lualine_a = {},            -- Remove all other sections
-        lualine_b = { 'branch' },  -- Only show git branch
+        lualine_a = {},           -- Remove all other sections
+        lualine_b = { 'branch' }, -- Only show git branch
         lualine_c = {
-          get_main_buffer_name,    -- Custom function to show the main buffer name
+          get_main_buffer_name,   -- Custom function to show the main buffer name
         },
-        lualine_x = {},            -- No info on the right
-        lualine_y = {},            -- No info on the right
-        lualine_z = {}             -- No info in the last section
+        lualine_x = {},           -- No info on the right
+        lualine_y = {},           -- No info on the right
+        lualine_z = {}            -- No info in the last section
       },
       inactive_sections = {
         lualine_a = {},
         lualine_b = {},
         lualine_c = {
-          get_main_buffer_name,    -- Use the same function for inactive sections
+          get_main_buffer_name, -- Use the same function for inactive sections
         },
         lualine_x = {},
         lualine_y = {},
@@ -53,4 +62,3 @@ return {
     })
   end
 }
-
