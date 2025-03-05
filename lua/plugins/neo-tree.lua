@@ -50,6 +50,14 @@ return {
             conflict  = "⚔", -- Merge conflict
           },
         },
+        diagnostics = {
+          symbols = {
+            hint = "", -- Remove "I" (Info) icon
+            info = "", -- Remove "I" (Info) icon
+            warn = "w", -- Keep Warning icon
+            error = "e", -- Keep Error icon
+          },
+        },
       },
       window = {
         width = 36,
@@ -104,4 +112,3 @@ return {
     })
   end
 }
-
