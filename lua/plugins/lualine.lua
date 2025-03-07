@@ -5,9 +5,6 @@ return {
     local main_buffer_name = ""
     local project_root = vim.fn.getcwd()
 
-    -- Define highlight for filename
-    vim.api.nvim_set_hl(0, "LualineFilename", { fg = "#E5C07B", bg = "NONE" })
-
     -- Function to get the main buffer name
     local function get_main_buffer_name()
       if vim.bo.filetype == "neo-tree" then
@@ -15,13 +12,16 @@ return {
           return "Neo-tree"
         end
         local path = vim.fn.fnamemodify(main_buffer_name, ":h")
+        local relative_path = string.gsub(path, "^" .. vim.pesc(project_root), "")
         local filename = vim.fn.fnamemodify(main_buffer_name, ":t")
-        return string.gsub(path, "^" .. project_root, "") .. "/" .. "%#LualineFilename#" .. filename .. "%#Normal#"
+        return relative_path .. "/" .. "%#LualineFilename#" .. filename .. "%#Normal#"
       else
         main_buffer_name = vim.fn.expand('%:p')
         local path = vim.fn.fnamemodify(main_buffer_name, ":h")
         local filename = vim.fn.fnamemodify(main_buffer_name, ":t")
-        return string.gsub(path, "^" .. project_root, "") .. "/" .. "%#LualineFilename#" .. filename .. "%#Normal#"
+        local relative_path = string.gsub(path, "^" .. vim.pesc(project_root), "")
+        return relative_path .. "/" .. "%#LualineFilename#" .. filename .. "%#Normal#"
+        -- return string.gsub(path, "^" .. project_root, "") .. "/" .. "%#LualineFilename#" .. filename .. "%#Normal#"
       end
     end
 
@@ -67,4 +67,3 @@ return {
     })
   end
 }
-

@@ -37,6 +37,10 @@ return {
 
     -- Change the folder text color
     vim.api.nvim_set_hl(0, 'NeoTreeDirectoryName', { fg = '#C0C0C0' })
+
+    vim.api.nvim_set_hl(0, "Comment", { fg = "#808080" })
+    vim.api.nvim_set_hl(0, "@comment", { link = "Comment" })
+    vim.api.nvim_set_hl(0, "LualineFilename", { fg = "#E5C07B", bg = "NONE" })
   end
 
 }
