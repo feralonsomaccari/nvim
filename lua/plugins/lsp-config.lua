@@ -38,7 +38,7 @@ return {
         capabilities = capabilities,
       })
 
-      -- Disable diagnostics virtual text (the "W", "E" icons)
+     --[[  -- Disable diagnostics virtual text (the "W", "E" icons)
       vim.diagnostic.config({
         virtual_text = false, -- Disables virtual text icons
         signs = false,        -- Disables the gutter signs (W, E, etc.)
@@ -46,7 +46,7 @@ return {
         underline = true,
         severity_sort = true,
       })
-
+ ]]
       vim.wo.signcolumn = "no"
 
       vim.keymap.set("n", "<leader>h", function()

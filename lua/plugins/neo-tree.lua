@@ -9,6 +9,11 @@ return {
     vim.keymap.set("n", "<leader>ew", ":Neotree source=git_status position=left<CR>",
       { noremap = true, silent = true })
 
+    require("nvim-web-devicons").setup {
+      color_icons = false,
+      default = false,
+    }
+
     require("neo-tree").setup({
       sources = { "filesystem", "git_status" },
       filesystem = {
@@ -22,41 +27,57 @@ return {
       },
       disabled_filetypes = { 'packer', 'NVimTree' },
       git_status = {
-        sort_untracked_first = true, -- Untracked files appear first, so they're clearly visible
+        sort_untracked_first = true,
       },
       default_component_configs = {
         icon = {
-          enabled = true, -- Enable icons for folders
-          folder_empty = "◎", -- Minimal circle for empty folder
-          folder_closed = "◎", -- Closed folder circle
-          folder_open = "◯", -- Open folder circle
-          file = "", -- No icon for files
-          directory = "", -- No icon for directories (folders)
-          symlink = "", -- No icon for symlinks
-          bookmark = "", -- No icon for bookmarks
+          enabled = true,
+          folder_empty = "◎",
+          folder_closed = "◎",
+          folder_open = "◯",
+          file = "",
+          directory = "",
+          symlink = "",
+          bookmark = "",
           default = "",
+          provider = function(icon, node, state)
+            if node.type == "file" or node.type == "terminal" then
+              local success, web_devicons = pcall(require, "nvim-web-devicons")
+              local name = node.type == "terminal" and "terminal" or node.name
+              if success then
+                local devicon, hl = web_devicons.get_icon(name)
+                icon.text = devicon or icon.text
+                icon.highlight = "NeoTreeFileIcon"
+              end
+            end
+          end,
+          highlight = "NeoTreeFileIcon",
         },
-
         git_status = {
           symbols = {
-            added     = "✔", -- Staged for commit
-            modified  = "✎", -- Modified but not staged
-            deleted   = "×", -- Deleted but not yet committed
-            renamed   = "➜", -- Renamed file
-            untracked = "★", -- Untracked file
-            ignored   = "", -- Ignored by .gitignore
-            unstaged  = "∪", -- Not staged for commit
-            staged    = "✓", -- Staged for commit
-            conflict  = "⚔", -- Merge conflict
+            added     = "✔",
+            modified  = "✎",
+            deleted   = "×",
+            renamed   = "➜",
+            untracked = "*",
+            ignored   = "",
+            unstaged  = "∪",
+            staged    = "✓",
+            conflict  = "⚔",
           },
         },
         diagnostics = {
           symbols = {
-            hint = "", -- Remove "I" (Info) icon
-            info = "", -- Remove "I" (Info) icon
-            warn = "w", -- Keep Warning icon
-            error = "e", -- Keep Error icon
+            hint = "",
+            info = "",
+            warn = "w",
+            error = "e",
           },
+        },
+      },
+      buffers = {
+        follow_current_file = {
+          enabled = true,
         },
       },
       window = {
@@ -64,49 +85,35 @@ return {
         border = "none",
         title = "",
         mappings = {
-          -- Keybindings for Git actions (VSCode-like)
-          ["A"]          = "git_add_all",      -- Stage all changes
-          ["eq"]         = "git_add_file",     -- Stage selected file
-          ["er"]         = "git_revert_file",  -- Revert changes to file
-          ["ew"]         = "git_unstage_file", -- Unstage file
-          ["ed"]         = "git_remove_file",  -- Remove file (git rm)
-          ["ee"]         = "git_commit",       -- Commit changes
-          ["ep"]         = "git_push",         -- Push changes
-
-          -- Get the current node (file/folder) under the cursor
+          ["A"]          = "git_add_all",
+          ["eq"]         = "git_add_file",
+          ["er"]         = "git_revert_file",
+          ["ew"]         = "git_unstage_file",
+          ["ed"]         = "git_remove_file",
+          ["ee"]         = "git_commit",
+          ["ep"]         = "git_push",
           ['<leader>fp'] = function(state)
             local node = state.tree:get_node()
-
             if node and node.type == "directory" then
-              require('telescope.builtin').find_files({
-                cwd = node.path
-              })
+              require('telescope.builtin').find_files({ cwd = node.path })
             elseif node and node.type == "file" then
-              require('telescope.builtin').find_files({
-                cwd = vim.fn.fnamemodify(node.path, ":h")
-              })
+              require('telescope.builtin').find_files({ cwd = vim.fn.fnamemodify(node.path, ":h") })
             else
               print("Invalid node type")
             end
           end,
-
           ['<leader>f/'] = function(state)
             local node = state.tree:get_node()
-
             if node and node.type == "directory" then
-              require('telescope.builtin').live_grep({
-                cwd = node.path -- Live grep inside the directory
-              })
+              require('telescope.builtin').live_grep({ cwd = node.path })
             elseif node and node.type == "file" then
-              require('telescope.builtin').live_grep({
-                cwd = vim.fn.fnamemodify(node.path, ":h")
-              })
+              require('telescope.builtin').live_grep({ cwd = vim.fn.fnamemodify(node.path, ":h") })
             else
               print("Invalid node type")
             end
           end,
-          ["q"]          = "", -- This prevents `q` from closing NeoTree
-          ["f"]          = "", -- This prevents from closing NeoTree
+          ["q"]          = "",
+          ["f"]          = "",
         }
       }
     })
