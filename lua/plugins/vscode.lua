@@ -8,11 +8,13 @@ return {
       disable_nvimtree_bg = true -- Disable nvim-tree background color
     })
 
+    local mainColor = '#1E1E1E'
+
     -- Apply the colorscheme
     vim.cmd('colorscheme vscode')
 
     -- Highlight for relative line numbers (not active line)
-    vim.api.nvim_set_hl(0, 'LineNr', { fg = '#1E1E1E' })
+    vim.api.nvim_set_hl(0, 'LineNr', { fg = mainColor })
     -- Highlight for the current line number (active line)
     vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = '#808080' })
 
@@ -26,9 +28,9 @@ return {
     vim.api.nvim_set_hl(0, 'NeoTreeGitIgnored', { fg = '#6c6c6c' })
     vim.api.nvim_set_hl(0, 'Comment', { fg = '#3a3a3a' })
 
-    vim.api.nvim_set_hl(0, 'VertSplit', { fg = '#1E1E1E' })    -- Vertical split separator
-    vim.api.nvim_set_hl(0, 'StatusLine', { fg = '#1E1E1E' })   -- Status line
-    vim.api.nvim_set_hl(0, 'WinSeparator', { fg = '#1E1E1E' }) -- Window separator
+    vim.api.nvim_set_hl(0, 'VertSplit', { fg = mainColor })    -- Vertical split separator
+    vim.api.nvim_set_hl(0, 'StatusLine', { fg = mainColor })   -- Status line
+    vim.api.nvim_set_hl(0, 'WinSeparator', { fg = mainColor }) -- Window separator
     vim.api.nvim_set_hl(0, 'NeoTreeDotfile', { fg = '#C0C0C0' })
     vim.api.nvim_set_hl(0, 'NeoTreeFileName', { fg = '#C0C0C0' })
 
@@ -42,7 +44,7 @@ return {
     vim.api.nvim_set_hl(0, "@comment", { link = "Comment" })
     vim.api.nvim_set_hl(0, "LualineFilename", { fg = "#E5C07B", bg = "NONE" })
 
-    vim.api.nvim_set_hl(0, "NeoTreeDirectoryIcon", { fg = "#FFFFFF" }) -- White icons
+    vim.api.nvim_set_hl(0, "NeoTreeDirectoryIcon", { fg = "#C0C0C0" }) -- White icons
     vim.api.nvim_set_hl(0, "NeoTreeDirectoryName", { fg = "#C0C0C0" }) -- White folder names
   end
 

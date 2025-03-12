@@ -32,9 +32,9 @@ return {
       default_component_configs = {
         icon = {
           enabled = true,
-          folder_empty = "◎",
-          folder_closed = "◎",
-          folder_open = "◯",
+          -- folder_empty = "◎",
+          -- folder_closed = "◎",
+          -- folder_open = "◯",
           file = "",
           directory = "",
           symlink = "",

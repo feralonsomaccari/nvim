@@ -11,4 +11,4 @@
 9) ~~Find a propper keybinding for closing current buffer~~
 10) Deactivate J and K so it dont move the line up and down (it should still work with Shift + j/k)
 11) ~~Add color to file name in the end of the path in lualine for easy reading~~
-12) If "/"doenst find anything then avoid throwing error in messages (this blocks the flow)
+12) If "/" doenst find anything then avoid throwing error in messages (this blocks the flow)
