@@ -18,6 +18,16 @@ return {
     -- Highlight for the current line number (active line)
     vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = '#808080' })
 
+    --Variables color
+    --vim.api.nvim_set_hl(0, "@variable.parameter", { fg = "red" })
+
+    -- Functions and methods color
+    --vim.api.nvim_set_hl(0, "@function", { fg = "#DCDCAA" })
+    --vim.api.nvim_set_hl(0, "@method", { fg = "#DCDCAA" })
+
+    -- File name in Lualine
+    vim.api.nvim_set_hl(0, "LualineFilename", { fg = "#DCDCAA", bg = "NONE" })
+
     ---- Neotree selected item highlight (background)
     vim.api.nvim_set_hl(0, 'NeoTreeCursorLine', { bg = '#3e4451' })
 
@@ -42,7 +52,6 @@ return {
 
     vim.api.nvim_set_hl(0, "Comment", { fg = "#808080" })
     vim.api.nvim_set_hl(0, "@comment", { link = "Comment" })
-    vim.api.nvim_set_hl(0, "LualineFilename", { fg = "#E5C07B", bg = "NONE" })
 
     vim.api.nvim_set_hl(0, "NeoTreeDirectoryIcon", { fg = "#C0C0C0" }) -- White icons
     vim.api.nvim_set_hl(0, "NeoTreeDirectoryName", { fg = "#C0C0C0" }) -- White folder names
