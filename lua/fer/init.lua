@@ -9,8 +9,8 @@ vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.smartindent = true
-vim.opt.expandtab = true                -- Use spaces instead of tabs
-vim.opt.autoindent = true               -- Copy indent from current line when starting a new line
+vim.opt.expandtab = true  -- Use spaces instead of tabs
+vim.opt.autoindent = true -- Copy indent from current line when starting a new line
 vim.opt.wrap = false
 vim.opt.number = true
 vim.opt.relativenumber = false
@@ -23,8 +23,8 @@ vim.opt.wildignore:append { '*/node_modules/*' }
 vim.o.cmdheight = 0                     -- Hide the command line
 vim.opt.fillchars = "eob: "
 vim.opt.swapfile = false
-vim.opt.incsearch = true                -- Enable incremental search
-vim.opt.cursorline = true               -- Highlight the current line
+vim.opt.incsearch = true  -- Enable incremental search
+vim.opt.cursorline = true -- Highlight the current line
 
 
 --[[
@@ -149,6 +149,40 @@ vim.api.nvim_set_keymap('n', 'V', '0v$', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('x', 'G', 'G$', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'G', 'G$', { noremap = true, silent = true })
 
+-- Switch booleans, lowercase/uppercase and increase/decrease numbers (also works with css units like 30px or 2rem)
+vim.keymap.set("n", "`", function()
+  local word = vim.fn.expand("<cword>")
+  local num, unit = word:match("([%d%.]+)(%a*)")
+  num = tonumber(num)
+  
+  if word == "true" then
+    vim.cmd('normal! ciwfalse')
+  elseif word == "false" then
+    vim.cmd('normal! ciwtrue')
+  elseif num then
+    vim.cmd("normal! ciw" .. (num + 1) .. unit) 
+  else
+    if word:lower() == word then
+      vim.cmd('normal! viwU')
+    else
+      vim.cmd('normal! viwu')
+    end
+  end
+end, { noremap = true, silent = true })
+
+-- Capitalize and decrease number
+vim.keymap.set("n", "~", function()
+  local word = vim.fn.expand("<cword>")
+  local num, unit = word:match("([%d%.]+)(%a*)")
+  num = tonumber(num)
+
+  if num then
+    vim.cmd("normal! ciw" .. (num - 1) .. unit)
+  else
+    local capitalized_word = word:sub(1, 1):upper() .. word:sub(2):lower()
+    vim.cmd("normal! ciw" .. capitalized_word)
+  end
+end, { noremap = true, silent = true })
 
 --[[
 ##################################################
@@ -176,7 +210,6 @@ vim.api.nvim_create_autocmd("CmdlineChanged", {
 function IsUnnamedBuffer(bufnr)
   return vim.fn.bufname(bufnr) == ""
 end
-
 
 -- Custom function for navigating to the previous buffer, skipping unnamed buffers
 function GoToPrevBuffer()
