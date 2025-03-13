@@ -55,6 +55,7 @@ return {
         -- Close the preview window automatically after selection
         vim.cmd("autocmd CursorMoved,BufHidden <buffer> ++once silent! pclose!")
       end, {})
+
       vim.keymap.set("n", "<leader>j", vim.lsp.buf.definition, {})
       vim.keymap.set({ "n", "v" }, "<leader>.", vim.lsp.buf.code_action, {})
       vim.keymap.set("n", "<leader>ff", vim.lsp.buf.format, {});

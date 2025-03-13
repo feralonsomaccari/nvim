@@ -1,5 +1,5 @@
 return {
-{
+--[[ {
     'alvan/vim-closetag',
     config = function()
         vim.g.closetag_filetypes = 'html,js,typescriptreact'
@@ -9,4 +9,6 @@ return {
             ['javascript.jsx'] = 'jsxRegion'
         }
     end
-}}
+}
+ ]]
+}
