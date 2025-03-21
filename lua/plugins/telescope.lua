@@ -16,7 +16,7 @@ return {
       require("telescope").setup({
         defaults = {
           file_ignore_patterns = { ".git/", "node_modules/", "%.o", "%.a", "%.out",
-            "%.pdf", "%.mkv", "%.mp4", "%.zip", ".cache", "dist", "coverage", "es5" }
+            "%.pdf", "%.mkv", "%.mp4", "%.zip", ".cache", "dist", "coverage", "es5", "%.snap" }
         },
         pickers = {
           find_files = {

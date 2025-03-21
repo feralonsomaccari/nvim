@@ -29,7 +29,7 @@ return {
         end
 
         vim.api.nvim_set_keymap("n", "<Leader><F12>", "<cmd>lua _toggle_term()<CR>", { noremap = true, silent = true })
-        vim.api.nvim_set_keymap("t", "<Esc>", "<cmd>lua _close_term()<CR>", { noremap = true, silent = true }) -- Close on <Esc>
+        -- vim.api.nvim_set_keymap("t", "<Esc>", "<cmd>lua _close_term()<CR>", { noremap = true, silent = true }) -- Close on <Esc>
     end
 }
 

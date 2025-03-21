@@ -12,3 +12,5 @@
 10) Deactivate J and K so it dont move the line up and down (it should still work with Shift + j/k)
 11) ~~Add color to file name in the end of the path in lualine for easy reading~~
 12) If "/" doenst find anything then avoid throwing error in messages (this blocks the flow)
+13) Add color to filename in Telescope to easy read the name of it
+14) Set up a key map to jump to file preview in Telescope
