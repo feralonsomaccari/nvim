@@ -14,3 +14,4 @@
 12) If "/" doenst find anything then avoid throwing error in messages (this blocks the flow)
 13) Add color to filename in Telescope to easy read the name of it
 14) Set up a key map to jump to file preview in Telescope
+15) ~~Add jira-cli support~~
