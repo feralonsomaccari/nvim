@@ -7,9 +7,9 @@ return {
 
     -- Function to get the main buffer name
     local function get_main_buffer_name()
-      if vim.bo.filetype == "neo-tree" then
+      if vim.bo.filetype == "neo-tree" or vim.bo.filetype == "toggleterm" then
         if main_buffer_name == "" then
-          return "Neo-tree"
+          return ""
         end
         local path = vim.fn.fnamemodify(main_buffer_name, ":h")
         local relative_path = string.gsub(path, "^" .. vim.pesc(project_root), "")

@@ -155,13 +155,13 @@ vim.keymap.set("n", "`", function()
   local word = vim.fn.expand("<cword>")
   local num, unit = word:match("([%d%.]+)(%a*)")
   num = tonumber(num)
-  
+
   if word == "true" then
     vim.cmd('normal! ciwfalse')
   elseif word == "false" then
     vim.cmd('normal! ciwtrue')
   elseif num then
-    vim.cmd("normal! ciw" .. (num + 1) .. unit) 
+    vim.cmd("normal! ciw" .. (num + 1) .. unit)
   else
     if word:lower() == word then
       vim.cmd('normal! viwU')
@@ -268,4 +268,49 @@ function GoToNextBuffer()
   if next_buf then
     vim.cmd('buffer ' .. next_buf.bufnr)
   end
+end
+
+-- Function to fetch Jira issue asynchronously
+vim.g.jira_content = ""
+function FetchJiraIssue()
+  -- Get current git branch name
+  local branch = vim.fn.system('git rev-parse --abbrev-ref HEAD')
+  local issue = branch:gsub("\n", "") -- Clean up the branch name
+
+  -- Fetch the Jira issue asynchronously
+  vim.fn.jobstart({ 'jira', 'issue', 'view', issue }, {
+    stdout_buffered = true,
+    on_stdout = function(_, data)
+      vim.g.jira_content = table.concat(data, "\n")
+    end,
+    on_stderr = function(_, data)
+      print("Error fetching Jira issue: " .. table.concat(data, "\n"))
+    end
+  })
+end
+
+vim.cmd([[autocmd VimEnter * lua FetchJiraIssue()]])
+vim.api.nvim_set_keymap('n', '<F1>', ':lua OpenJiraInPopup(vim.g.jira_content)<CR>', { noremap = true, silent = true })
+
+function OpenJiraInPopup(content)
+  local buf = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_buf_set_lines(buf, 0, -1, true, vim.split(content, "\n"))
+  vim.api.nvim_buf_set_option(buf, 'buftype', 'nofile')
+  vim.api.nvim_buf_set_option(buf, 'modifiable', false)
+  vim.api.nvim_buf_set_option(buf, 'filetype', 'man')
+
+  local width = math.floor(vim.o.columns * 0.8)
+  local height = math.floor(vim.o.lines * 0.8)
+
+  local opts = {
+    relative = 'editor',
+    width = width,
+    height = height,
+    col = (vim.o.columns - width) / 2,
+    row = (vim.o.lines - height) / 2,
+    border = 'rounded'
+  }
+
+  vim.cmd('autocmd FileType man setlocal termguicolors')
+  vim.api.nvim_open_win(buf, true, opts)
 end
