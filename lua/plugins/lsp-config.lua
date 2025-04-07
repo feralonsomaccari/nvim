@@ -47,8 +47,6 @@ return {
         severity_sort = true,
       })
  ]]
-      vim.wo.signcolumn = "no"
-
       vim.keymap.set("n", "<leader>h", function()
         -- Trigger hover
         vim.lsp.buf.hover()

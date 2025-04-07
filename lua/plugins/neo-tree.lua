@@ -3,11 +3,7 @@ return {
   branch = "v3.x",
   dependencies = { "nvim-lua/plenary.nvim", "MunifTanjim/nui.nvim" },
   config = function()
-    vim.keymap.set("n", "<leader>wq", ":Neotree source=filesystem position=left<CR>",
-      { noremap = true, silent = true })
-
-    vim.keymap.set("n", "<leader>ew", ":Neotree source=git_status position=left<CR>",
-      { noremap = true, silent = true })
+    vim.keymap.set("n", "<S-b>", ":Neotree toggle<CR>", { noremap = true, silent = true })
 
     require("nvim-web-devicons").setup {
       color_icons = false,
